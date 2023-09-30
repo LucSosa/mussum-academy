@@ -1,19 +1,24 @@
 import { Module } from '@nestjs/common';
-import { AppService } from './app.service';
 import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { join } from 'path';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { ContentsModule } from './contents/contents.module';
+import { StudentsModule } from './modules/students/students.module';
 
 @Module({
   imports: [
-    GraphQLModule.forRoot<ApolloDriverConfig>({
-      driver: ApolloDriver,
+    TypeOrmModule.forRoot(),
+    GraphQLModule.forRoot({
+      debug: false,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
     }),
-    TypeOrmModule.forRoot(),
+    // ContentsModule,
+    StudentsModule,
   ],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
