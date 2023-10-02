@@ -1,13 +1,11 @@
 import { Field, InputType } from '@nestjs/graphql';
+import { UpdateLessonInput } from 'src/modules/lessons/dto/update-lesson.input';
 
 @InputType()
 export class CreateContentInput {
-  @Field()
   description: string;
 
-  @Field()
   linkContent?: string;
 
-  @Field()
   lessonId?: string;
 }
